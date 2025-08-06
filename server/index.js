@@ -15,6 +15,9 @@ app.use(cors({ origin: "*" })); // allow all for now
 // Routes
 app.use("/", blogRoutes);
 app.use("/", authRoutes);
+app.get("/", (req, res) => {
+  res.send("Backend is running successfully 🚀");
+});
 
 // Database
 mongoose
