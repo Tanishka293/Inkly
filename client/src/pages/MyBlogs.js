@@ -11,7 +11,7 @@ export default function MyBlogs() {
         const fetchMyBlogs = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const res = await axios.get("http://localhost:5000/my-blogs", {
+                const res = await axios.get("https://inkly-gj74.onrender.com/my-blogs", {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setBlogs(res.data);
@@ -25,7 +25,7 @@ export default function MyBlogs() {
     const handleDelete = async (id) => {
         try {
             const token = localStorage.getItem("token");
-            await axios.delete(`http://localhost:5000/blogs/${id}`, {
+            await axios.delete(`https://inkly-gj74.onrender.com/blogs/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setBlogs(blogs.filter((blog) => blog._id !== id));

@@ -9,7 +9,7 @@ export default function Home() {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/blogs");
+                const res = await axios.get("https://inkly-gj74.onrender.com/blogs");
                 setBlogs(res.data);
             } catch (err) {
                 console.error("Error fetching blogs:", err);

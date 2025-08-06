@@ -13,7 +13,7 @@ export default function BlogDetails() {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/blogs/${id}`);
+        const res = await axios.get(`https://inkly-gj74.onrender.com/blogs/${id}`);
         setBlog(res.data);
       } catch (err) {
         console.error("Error fetching blog:", err);
@@ -27,7 +27,7 @@ export default function BlogDetails() {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        `http://localhost:5000/blogs/${id}/comments`,
+        `https://inkly-gj74.onrender.com/blogs/${id}/comments`,
         { text: comment },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -44,14 +44,14 @@ export default function BlogDetails() {
     if (!token) return alert("Login to like blogs");
     try {
       const res = await axios.post(
-        `http://localhost:5000/blogs/${blog._id}/like`,
+        `https://inkly-gj74.onrender.com/blogs/${blog._id}/like`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert(res.data.message);
 
       // Refresh blog data
-      const updated = await axios.get(`http://localhost:5000/blogs/${id}`);
+      const updated = await axios.get(`https://inkly-gj74.onrender.com/blogs/${id}`);
       setBlog(updated.data);
     } catch (err) {
       alert("Error liking blog");
@@ -63,14 +63,14 @@ export default function BlogDetails() {
     if (!token) return alert("Login to like comments");
     try {
       const res = await axios.post(
-        `http://localhost:5000/blogs/${blog._id}/comments/${commentId}/like`,
+        `https://inkly-gj74.onrender.com/blogs/${blog._id}/comments/${commentId}/like`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert(res.data.message);
 
       // Refresh blog data
-      const updated = await axios.get(`http://localhost:5000/blogs/${id}`);
+      const updated = await axios.get(`https://inkly-gj74.onrender.com/blogs/${id}`);
       setBlog(updated.data);
     } catch (err) {
       alert("Error liking comment");
@@ -84,14 +84,14 @@ export default function BlogDetails() {
     if (!token) return alert("Login to reply");
     try {
       await axios.post(
-        `http://localhost:5000/blogs/${blog._id}/comments/${commentId}/reply`,
+        `https://inkly-gj74.onrender.com/blogs/${blog._id}/comments/${commentId}/reply`,
         { text: replyText },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert("Reply added!");
       
       // Refresh blog data
-      const updated = await axios.get(`http://localhost:5000/blogs/${id}`);
+      const updated = await axios.get(`https://inkly-gj74.onrender.com/blogs/${id}`);
       setBlog(updated.data);
     } catch (err) {
       alert("Error adding reply");

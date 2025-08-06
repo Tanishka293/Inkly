@@ -15,7 +15,7 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:5000/login", formData);
+            const res = await axios.post("https://inkly-gj74.onrender.com/login", formData);
             localStorage.setItem("token", res.data.token);
             setMessage("Login successful!");
             setTimeout(() => navigate("/home"), 1000);

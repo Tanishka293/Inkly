@@ -14,7 +14,7 @@ export default function EditBlog() {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/blogs/${id}`);
+        const res = await axios.get(`https://inkly-gj74.onrender.com/blogs/${id}`);
         setTitle(res.data.title);
         setContent(res.data.content);
       } catch (err) {
@@ -29,7 +29,7 @@ export default function EditBlog() {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.put(
-        `http://localhost:5000/blogs/${id}`,
+        `https://inkly-gj74.onrender.com/blogs/${id}`,
         { title, content },
         { headers: { Authorization: `Bearer ${token}` } }
       );

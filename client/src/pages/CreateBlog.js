@@ -23,7 +23,7 @@ export default function CreateBlog() {
         e.preventDefault();
         try {
             const token = localStorage.getItem("token");
-            const res = await axios.post("http://localhost:5000/blogs", formData, {
+            const res = await axios.post("https://inkly-gj74.onrender.com/blogs", formData, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setMessage(res.data.message);

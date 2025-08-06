@@ -14,7 +14,7 @@ export default function Navbar() {
             if (!token) return;
 
             try {
-                const res = await axios.get("http://localhost:5000/me", {
+                const res = await axios.get("https://inkly-gj74.onrender.com/me", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 console.log("User response:", res.data); 

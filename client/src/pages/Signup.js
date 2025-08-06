@@ -15,7 +15,7 @@ export default function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:5000/signup", formData);
+            const res = await axios.post("https://inkly-gj74.onrender.com/signup", formData);
             setMessage(res.data.message);
             setTimeout(() => navigate("/login"), 1500);
         } catch (err) {
