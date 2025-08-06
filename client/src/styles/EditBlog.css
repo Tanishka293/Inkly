@@ -1,0 +1,67 @@
+/* EditBlog Page */
+
+.edit-blog-page {
+    min-height: 100vh;
+    /* Full screen height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Center vertically */
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #befde6, #abbef8);
+}
+
+/* Card-like background for the form */
+.edit-blog-card {
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+
+
+
+}
+
+.edit-blog-form {
+    background: linear-gradient(135deg, #8da6eb, #93eaca);
+    backdrop-filter: blur(8px);
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;         
+    max-width: 900px;    
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+/* Input fields */
+.edit-blog-card .form-control {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+
+
+}
+
+.edit-blog-card .form-control:focus {
+    color: white;
+
+}
+
+/* Labels */
+.edit-blog-card .form-label {
+    color: white;
+    font-weight: 500;
+    font-size: 20px;
+
+}
+
+/* Button */
+.edit-blog-card .btn-success {
+    background-color: #28a745;
+    border: none;
+    font-weight: bold;
+}
+
+.edit-blog-card .btn-success:hover {
+    background-color: #218838;
+}

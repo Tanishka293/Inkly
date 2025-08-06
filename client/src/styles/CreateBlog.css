@@ -1,0 +1,74 @@
+/* Background for the entire page */
+.create-blog-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #4e73df, #1cc88a);
+  padding: 40px 20px;
+}
+
+/* Page title */
+.create-blog-title {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Blog creation form card */
+.create-blog-form {
+  background: linear-gradient(135deg, #9de1c8,#8da5ec);
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 500px;
+  font-size:25px;
+}
+
+/* Inputs */
+.blog-title-input,
+.blog-content-input {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: 0.3s;
+}
+
+.blog-title-input:focus,
+.blog-content-input:focus {
+  border-color: #4e73df;
+  box-shadow: 0 0 8px rgba(78, 115, 223, 0.4);
+}
+
+/* Submit button */
+.submit-blog-btn {
+  border-radius: 8px;
+  background: #4e73df;
+  border: none;
+  transition: 0.3s;
+}
+
+.submit-blog-btn:hover {
+  background: #3751c2;
+}
+
+/* Success button after blog creation */
+.view-blogs-btn {
+  width: 100%;
+  max-width: 500px;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Alert styling */
+.alert {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 8px;
+}

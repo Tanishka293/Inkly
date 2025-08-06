@@ -1,0 +1,141 @@
+/* ===== Global Styles ===== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f0f4ff, #e8f0ff);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+  color: #222;
+  font-weight: 600;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #fff !important;
+}
+
+.navbar .btn {
+  border-radius: 20px;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.navbar .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* ===== Blog Cards ===== */
+.blog-card {
+  background: white;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.blog-title a {
+  color: #1d4ed8;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.blog-title a:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* ===== Blog Details Page ===== */
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  margin-bottom: 40px;
+}
+
+.btn-outline-primary {
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+/* ===== Comments Section ===== */
+.list-group-item {
+  border-radius: 10px !important;
+  margin-bottom: 10px;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+}
+
+textarea.form-control {
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  padding: 10px;
+  resize: none;
+}
+
+textarea.form-control:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 6px rgba(59,130,246,0.5);
+}
+
+/* ===== Forms (Signup / Login / Create Blog) ===== */
+form {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  margin-top: 30px;
+}
+
+form input, form textarea {
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+form input:focus, form textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 6px rgba(59,130,246,0.5);
+}
+
+/* ===== Buttons ===== */
+.btn-primary {
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  border-radius: 20px;
+}
+
+.btn-warning {
+  border-radius: 20px;
+}
+
+.alert-info {
+  border-radius: 10px;
+}

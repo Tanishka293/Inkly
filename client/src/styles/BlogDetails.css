@@ -1,0 +1,81 @@
+.blog-details-page {
+  min-height: 100vh;
+  background: linear-gradient(105deg,#4f8df9,#6a11cb);
+  display: flex;
+  justify-content: center;
+  padding: 50px 20px;
+}
+.create-blog-page{
+    background: linear-gradient(105deg,#4f8df9,#6a11cb);
+}
+
+.blog-details-container {
+  background: linear-gradient(135deg, rgb(184, 132, 239), #84acf2);
+  color: #333;
+  max-width: 700px;
+  width: 100%;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.blog-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 0;
+}
+
+.blog-content {
+  text-align: justify;
+  line-height: 1.7;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.blog-meta {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0px;
+}
+
+
+
+.comment-list .comment-item {
+  background: rgba(228, 193, 238, 0.9);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.replies-list {
+  list-style: none;
+  padding-left: 0;
+  background: rgba(228, 193, 238, 0.9);
+}
+
+.comment-form textarea {
+  resize: none;
+  border-radius: 10px;
+  background: rgba(191, 193, 238, 0.9);
+}
+form{
+   background: rgba(228, 193, 238, 0.9); 
+}
+
+
+
+.comments-title {
+  margin-top: 30px;
+  font-weight: bold;
+}
+button{
+    background-color: #90a6d6;
+    cursor: pointer;
+    border-radius: 20px;
+}
+button:hover{
+    background-color: #648be0;
+}
+.liked-btn{
+    margin-right: 10px;
+}
