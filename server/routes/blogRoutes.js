@@ -215,4 +215,25 @@ router.post("/blogs/:id/comments/:commentId/reply", verifyToken, async (req, res
   res.json({ message: "Reply added", replies: comment.replies });
 });
 
+router.patch("/archive/:id", verifyToken, async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id);
+    if (!blog) return res.status(404).json({ message: "Blog not found" });
+
+    // Optional: check if user is author (for extra protection)
+    if (blog.author.toString() !== req.user.id)
+      return res.status(403).json({ message: "Unauthorized" });
+
+    blog.archived = !blog.archived; // ✅ toggle archived status
+    await blog.save();
+
+    res.status(200).json({
+      message: `Blog ${blog.archived ? "archived" : "unarchived"} successfully`,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
 module.exports = router;
