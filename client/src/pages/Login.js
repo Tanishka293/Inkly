@@ -27,7 +27,7 @@ export default function Login() {
     return (
         <div className="signup-container">
             <div className="signup-card">
-                
+
                 <div className="text-center mb-3">
                     <div className="emoji-logo">🖋️ Inkly</div>
                     <h2 className="mt-2">Sign In</h2>

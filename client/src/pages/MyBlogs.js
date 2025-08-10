@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -38,7 +37,7 @@ export default function MyBlogs() {
    return (
     <div className="my-blogs-page">
         <h2 className="my-blogs-title">My Blogs</h2>
-        
+
         {message && <p className="my-blogs-message text-danger">{message}</p>}
 
         {blogs.length === 0 ? (

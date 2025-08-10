@@ -89,7 +89,7 @@ export default function BlogDetails() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert("Reply added!");
-      
+
       // Refresh blog data
       const updated = await axios.get(`https://inkly-gj74.onrender.com/blogs/${id}`);
       setBlog(updated.data);
@@ -103,7 +103,7 @@ export default function BlogDetails() {
   return (
   <div className="blog-details-page">
     <div className="blog-details-container">
-      
+
       {/* ✅ Back Button */}
       <button className="back-btn"
         onClick={() => navigate("/home")}

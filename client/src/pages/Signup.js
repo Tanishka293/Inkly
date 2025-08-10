@@ -15,7 +15,7 @@ export default function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://inkly-gj74.onrender.com/signup", formData);
+            const res = await axios.post("https://inkly-gj74.onrender.com/signup", formData);
             setMessage(res.data.message);
             setTimeout(() => navigate("/login"), 1500);
         } catch (err) {
@@ -26,7 +26,7 @@ export default function Signup() {
     return (
         <div className="signup-container">
             <div className="signup-card">
-                
+
                 <div className="text-center mb-3">
                     <div className="emoji-logo">🖋️ Inkly</div>
                     <h2 className="mt-2">Create an Account</h2>
