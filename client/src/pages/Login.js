@@ -14,12 +14,24 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setMessage(""); // clear old messages
+
         try {
-            const res = await axios.post("https://inkly-gj74.onrender.com/login", formData);
+            const res = await axios.post(
+                "https://inkly-gj74.onrender.com/login",
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
+
             localStorage.setItem("token", res.data.token);
             setMessage("Login successful!");
             setTimeout(() => navigate("/home"), 1000);
         } catch (err) {
+            console.error("Login Error:", err);
             setMessage(err.response?.data?.message || "Error logging in");
         }
     };
@@ -27,14 +39,19 @@ export default function Login() {
     return (
         <div className="signup-container">
             <div className="signup-card">
-
                 <div className="text-center mb-3">
                     <div className="emoji-logo">🖋️ Inkly</div>
                     <h2 className="mt-2">Sign In</h2>
                 </div>
 
                 {message && (
-                    <div className={`alert ${message.includes("success") || message.includes("Login") ? "alert-success" : "alert-danger"}`}>
+                    <div
+                        className={`alert ${
+                            message.includes("success") || message.includes("Login")
+                                ? "alert-success"
+                                : "alert-danger"
+                        }`}
+                    >
                         {message}
                     </div>
                 )}
@@ -46,6 +63,7 @@ export default function Login() {
                             name="email"
                             className="form-control"
                             placeholder="Email"
+                            value={formData.email}
                             onChange={handleChange}
                             required
                         />
@@ -56,16 +74,21 @@ export default function Login() {
                             name="password"
                             className="form-control"
                             placeholder="Password"
+                            value={formData.password}
                             onChange={handleChange}
                             required
                         />
                     </div>
-                    <button type="submit" className="btn btn-gradient w-100">Sign In</button>
+                    <button type="submit" className="btn btn-gradient w-100">
+                        Sign In
+                    </button>
                 </form>
 
                 <p className="text-center mt-3">
                     Don't have an account?{" "}
-                    <Link to="/signup" className="login-link">Create Account</Link>
+                    <Link to="/signup" className="login-link">
+                        Create Account
+                    </Link>
                 </p>
             </div>
         </div>
