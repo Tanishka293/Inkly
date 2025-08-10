@@ -2,29 +2,27 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
-
 const blogRoutes = require("./routes/blogRoutes");
+
+
+
 const authRoutes = require("./routes/authRoutes");
 
 const app = express();
-
-// Middleware
 app.use(express.json());
-app.use(cors({ origin: "*" })); // allow all for now
+const cors = require("cors");
+app.use(cors({ origin: "*" })); // for now allow all
 
-// Routes
 app.use("/", blogRoutes);
-app.use("/", authRoutes);
-app.get("/", (req, res) => {
-  res.send("Backend is running successfully 🚀");
-});
 
-// Database
-mongoose
-  .connect(process.env.MONGO_URI, { dbName: "Inkly" })
+// ✅ Routes
+app.use("/", authRoutes);
+
+mongoose.connect(process.env.MONGO_URI, { dbName: "Inkly" })
   .then(() => console.log("MongoDB connected to Inkly DB"))
   .catch(err => console.error(err));
 
-// Start server
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

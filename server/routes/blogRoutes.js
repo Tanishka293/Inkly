@@ -4,13 +4,13 @@ const Blog = require("../models/Blog");
 
 const router = express.Router();
 
-// ✅ Middleware to verify token
+// Middleware to verify token
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   if (!authHeader) return res.status(401).json({ message: "Access Denied" });
 
-  const token = authHeader.startsWith("Bearer ") 
-    ? authHeader.split(" ")[1] 
+  const token = authHeader.startsWith("Bearer ")
+    ? authHeader.split(" ")[1]
     : authHeader;
 
   try {
@@ -18,13 +18,10 @@ const verifyToken = (req, res, next) => {
     req.userId = decoded.userId;
     next();
   } catch (err) {
+    console.error("Token Error:", err.message);
     res.status(400).json({ message: "Invalid Token" });
   }
 };
-
-//
-// ✅ BLOG CRUD
-//
 
 // Create blog
 router.post("/blogs", verifyToken, async (req, res) => {
@@ -34,16 +31,18 @@ router.post("/blogs", verifyToken, async (req, res) => {
     await blog.save();
     res.json({ message: "Blog created successfully", blog });
   } catch (err) {
+    console.error("Create Blog Error:", err.message);
     res.status(500).json({ message: "Error creating blog" });
   }
 });
 
-// Get all non-archived blogs
+// Get all blogs
 router.get("/blogs", async (req, res) => {
   try {
-    const blogs = await Blog.find({ archived: false }).populate("author", "name email");
+    const blogs = await Blog.find().populate("author", "name email");
     res.json(blogs);
   } catch (err) {
+    console.error("Error fetching blogs:", err);
     res.status(500).json({ message: "Error fetching blogs" });
   }
 });
@@ -59,116 +58,33 @@ router.get("/blogs/:id", async (req, res) => {
 
     res.json(blog);
   } catch (err) {
+    console.error("Error fetching blog:", err.message);
     res.status(500).json({ message: "Error fetching blog" });
   }
 });
 
-// Update blog by ID
-router.put("/blogs/:id", verifyToken, async (req, res) => {
-  try {
-    const { title, content } = req.body;
-    const blog = await Blog.findById(req.params.id);
-
-    if (!blog) return res.status(404).json({ message: "Blog not found" });
-    if (blog.author.toString() !== req.userId) {
-      return res.status(403).json({ message: "Not authorized" });
-    }
-
-    blog.title = title || blog.title;
-    blog.content = content || blog.content;
-    await blog.save();
-
-    res.json({ message: "Blog updated successfully", blog });
-  } catch (err) {
-    res.status(500).json({ message: "Error updating blog" });
-  }
-});
-
-// Delete blog by ID
-router.delete("/blogs/:id", verifyToken, async (req, res) => {
-  try {
-    const blog = await Blog.findById(req.params.id);
-    if (!blog) return res.status(404).json({ message: "Blog not found" });
-
-    if (blog.author.toString() !== req.userId) {
-      return res.status(403).json({ message: "Not authorized" });
-    }
-
-    await blog.deleteOne();
-    res.json({ message: "Blog deleted successfully" });
-  } catch (err) {
-    res.status(500).json({ message: "Error deleting blog" });
-  }
-});
-
-//
-// ✅ ARCHIVE FUNCTIONALITY
-//
-
-// Archive or unarchive a blog
-router.put("/blogs/:id/archive", verifyToken, async (req, res) => {
-  try {
-    const blog = await Blog.findById(req.params.id);
-    if (!blog) return res.status(404).json({ message: "Blog not found" });
-
-    if (blog.author.toString() !== req.userId)
-      return res.status(403).json({ message: "Unauthorized" });
-
-    blog.archived = !blog.archived; // toggle
-    await blog.save();
-
-    res.json({ message: `Blog ${blog.archived ? "archived" : "unarchived"} successfully`, blog });
-  } catch (err) {
-    res.status(500).json({ message: "Error archiving blog", error: err.message });
-  }
-});
-
-// Get all archived blogs of logged-in user
-router.get("/blogs/archived", verifyToken, async (req, res) => {
-  try {
-    const blogs = await Blog.find({ author: req.userId, archived: true });
-    res.json(blogs);
-  } catch (err) {
-    res.status(500).json({ message: "Error fetching archived blogs", error: err.message });
-  }
-});
-
-//
-// ✅ USER'S BLOGS
-//
-
-// Get blogs of the logged-in user (including archived)
-router.get("/my-blogs", verifyToken, async (req, res) => {
-  try {
-    const blogs = await Blog.find({ author: req.userId });
-    res.json(blogs);
-  } catch (err) {
-    res.status(500).json({ message: "Error fetching your blogs" });
-  }
-});
-
-//
-// ✅ COMMENTS, LIKES, REPLIES
-//
-
-// Add comment
+// Add comment to blog
 router.post("/blogs/:id/comments", verifyToken, async (req, res) => {
   try {
     const { text } = req.body;
+
     const blog = await Blog.findById(req.params.id);
     if (!blog) return res.status(404).json({ message: "Blog not found" });
 
     blog.comments.push({ text, user: req.userId });
     await blog.save();
 
-    const updatedBlog = await Blog.findById(req.params.id).populate("comments.user", "name");
+    const updatedBlog = await Blog.findById(req.params.id)
+      .populate("comments.user", "name");
+
     res.json({ message: "Comment added", comments: updatedBlog.comments });
   } catch (err) {
+    console.error("Error adding comment:", err.message);
     res.status(500).json({ message: "Error adding comment" });
   }
 });
 
-// Like blog
+// Like a blog
 router.post("/blogs/:id/like", verifyToken, async (req, res) => {
   const blog = await Blog.findById(req.params.id);
   if (!blog) return res.status(404).json({ message: "Blog not found" });
@@ -183,7 +99,7 @@ router.post("/blogs/:id/like", verifyToken, async (req, res) => {
   res.json({ message: "Blog like updated", likes: blog.likes.length });
 });
 
-// Like comment
+// Like a comment
 router.post("/blogs/:id/comments/:commentId/like", verifyToken, async (req, res) => {
   const blog = await Blog.findById(req.params.id);
   if (!blog) return res.status(404).json({ message: "Blog not found" });
@@ -215,25 +131,53 @@ router.post("/blogs/:id/comments/:commentId/reply", verifyToken, async (req, res
   res.json({ message: "Reply added", replies: comment.replies });
 });
 
-router.patch("/archive/:id", verifyToken, async (req, res) => {
+// Get blogs of the logged-in user (for MyBlogs.js)
+router.get("/blogs/myblogs", verifyToken, async (req, res) => {
+  try {
+    const blogs = await Blog.find({ author: req.userId }).populate("author", "name email");
+    res.json(blogs);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching your blogs" });
+  }
+});
+
+// Delete a blog (only if user is the author)
+router.delete("/blogs/:id", verifyToken, async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
     if (!blog) return res.status(404).json({ message: "Blog not found" });
 
-    // Optional: check if user is author (for extra protection)
-    if (blog.author.toString() !== req.user.id)
-      return res.status(403).json({ message: "Unauthorized" });
+    if (blog.author.toString() !== req.userId) {
+      return res.status(403).json({ message: "Not authorized" });
+    }
 
-    blog.archived = !blog.archived; // ✅ toggle archived status
-    await blog.save();
-
-    res.status(200).json({
-      message: `Blog ${blog.archived ? "archived" : "unarchived"} successfully`,
-    });
+    await blog.deleteOne();
+    res.json({ message: "Blog deleted successfully" });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: "Error deleting blog" });
   }
 });
 
+// Update blog (only if user is the author)
+router.put("/blogs/:id", verifyToken, async (req, res) => {
+  try {
+    const { title, content } = req.body;
+    const blog = await Blog.findById(req.params.id);
+
+    if (!blog) return res.status(404).json({ message: "Blog not found" });
+
+    if (blog.author.toString() !== req.userId) {
+      return res.status(403).json({ message: "Not authorized" });
+    }
+
+    blog.title = title || blog.title;
+    blog.content = content || blog.content;
+    await blog.save();
+
+    res.json({ message: "Blog updated successfully", blog });
+  } catch (err) {
+    res.status(500).json({ message: "Error updating blog" });
+  }
+});
 
 module.exports = router;
