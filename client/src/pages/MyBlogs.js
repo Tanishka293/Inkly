@@ -11,7 +11,7 @@ export default function MyBlogs() {
         const fetchMyBlogs = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const res = await axios.get("https://inkly-gj74.onrender.com/blogs/myblogs", {
+                const res = await axios.get("https://inkly-gj74.onrender.com/my-blogs", {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setBlogs(res.data);
