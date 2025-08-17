@@ -134,12 +134,15 @@ router.post("/blogs/:id/comments/:commentId/reply", verifyToken, async (req, res
 // Get blogs of the logged-in user (for MyBlogs.js)
 router.get("/blogs/myblogs", verifyToken, async (req, res) => {
   try {
+    console.log("User ID from token:", req.userId);  // log decoded userId
     const blogs = await Blog.find({ author: req.userId }).populate("author", "name email");
     res.json(blogs);
   } catch (err) {
-    res.status(500).json({ message: "Error fetching your blogs" });
+    console.error("Error in /blogs/myblogs:", err.message);
+    res.status(500).json({ message: "Error fetching your blogs", error: err.message });
   }
 });
+
 
 // Delete a blog (only if user is the author)
 router.delete("/blogs/:id", verifyToken, async (req, res) => {
